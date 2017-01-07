@@ -18,7 +18,7 @@ class ConfigBase:
 class DevelopmentConfig(ConfigBase):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-            'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
+            'mysql://root:199184@localhost/openvpn-dev'
     
 
 class TestingConfig(ConfigBase):

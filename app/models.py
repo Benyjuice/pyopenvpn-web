@@ -2,6 +2,8 @@ from flask_login import UserMixin, AnonymousUserMixin
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import login_manager
+from datetime import datetime
+
 
 class UserModel(UserMixin, db.Model):
     __tablename__='user'
@@ -32,13 +34,13 @@ class LogModel(db.Model):
     __table_args__ = {'sqlite_autoincrement': True}
     id = db.Column(db.BigInteger, primary_key=True)
     user_id = db.Column(db.BigInteger, db.ForeignKey('user.id'))
-    start_time = db.Column(db.DateTime)
+    start_time = db.Column(db.DateTime, default=datetime.utcnow)
     end_time = db.Column(db.DateTime)
     trusted_ip = db.Column(db.String(64))
     trusted_port = db.Column(db.String(10))
     bytes_received = db.Column(db.BigInteger)
     bytes_sent = db.Column(db.BigInteger)
-    finished = db.Column(db.Boolean)
+    finished = db.Column(db.Boolean, default=False)
 
 
 class AnonymousUser(AnonymousUserMixin):
