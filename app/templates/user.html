@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
 {% block page %}
+
     <div class="page-header">
         <h1>{% if user.username %}{{ user.username }} {% if user.enable %}<span class="badge">Enable</span>{% else %}<span class="badge label-danger">Disable</span>{% endif %} {% else %}用户{% endif %}</h1>
     </div>
+
+    {% if current %}
+        <h1>正在连接</h1>
+        <li>IP:{{ current.trusted_ip }}</li>
+        <li>开始时间:{{ moment(current.start_time).format('LLL') }}</li>
+    {% endif %}
     <div class="row">
     <table class="table table-condensed">
     <caption>登录记录</caption>
@@ -17,8 +24,8 @@
     {% for log in logs %}
         <tr>
           <td>{{ log.trusted_ip }}</td>
-          <td>{{ log.start_time }}</td>
-          <td>{{ log.end_time }}</td>
+          <td>{{ moment(log.start_time).format('LLL') }}</td>
+          <td>{{ moment(log.end_time).format('LLL') }}</td>
             <td>{{ log.bytes_received + log.bytes_sent }}</td>
         </tr>
     {% endfor %}

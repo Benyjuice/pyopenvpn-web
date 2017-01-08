@@ -25,6 +25,11 @@
       <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+      {{ moment.include_jquery() }}
+      {{ moment.include_moment() }}
+
+        <!--使用中文,默认是英语的-->
+　　   {{ moment.lang("zh-CN") }}
   </head>
 
   <body>
@@ -41,12 +46,18 @@
           <li><a href="#">关于</a></li>
           <li><a href="#">联系我们</a></li>
             {% if current_user.is_authenticated %}
-                <li><a href="#">{{ current_user.username }},你好</a> </li>
+                <li><a href="{{ url_for('main.user_info') }}">{{ current_user.username }},你好</a> </li>
             {% else %}
-                <li><a href="#">登录</a> </li>
+                <li><a href="{{ url_for('auth.login') }}">登录</a> </li>
             {% endif %}
         </ul>
       </div>
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
 
         {% block page %}{% endblock %}
 

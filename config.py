@@ -3,7 +3,7 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class ConfigBase:
-    SECRET_KRY = os.environ.get('SECRET_KEY') or '!((!(!!FXX'
+    SECRET_KEY = os.environ.get('SECRET_KEY') or '!((!(!!FXX'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     MAIL_SUBJECT_PREFIX = '[Huayue]'
