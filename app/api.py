@@ -1,6 +1,7 @@
 from . import db
 from .models import UserModel, LogModel
 from datetime import datetime
+from flask import current_app
 
 
 class Api:
@@ -29,7 +30,12 @@ class Api:
         db.session.commit()
 
     def disconnect(self, bytes_received, bytes_sent):
-        logs = LogModel.query.filter_by(username=self.username,finished=False).all()
+        user = UserModel.query.filter_by(username=self.username).first()
+        if not user:
+            current_app.logger.error('Error:no sunch user:%s\n' % self.username)
+            return 1
+
+        logs = LogModel.query.filter_by(user=user,finished=False).all()
         if not logs:
             return 1
         for log in logs:
