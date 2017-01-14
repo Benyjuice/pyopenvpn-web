@@ -1,7 +1,7 @@
 #!.venv/bin/python
 from flask_script import Manager, Shell, Command, Option
 from app import create_app, db, Api
-from app.models import UserModel, LogModel
+from app.models import UserModel, LogModel, RoleModel
 import os
 from flask_migrate import Migrate, MigrateCommand
 
@@ -11,7 +11,7 @@ manager = Manager(app)
 migrate = Migrate(app, db, directory="migrations")
 
 def make_shell_contex():
-    return dict(db=db,app=app,User=UserModel,Log=LogModel, Api=Api)
+    return dict(db=db,app=app,User=UserModel,Log=LogModel, Api=Api, role=RoleModel)
 
 
 class Varify(Command):

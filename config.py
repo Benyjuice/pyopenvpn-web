@@ -9,7 +9,7 @@ class ConfigBase:
     MAIL_SUBJECT_PREFIX = '[Huayue]'
     MAIL_SUBJECT_PREFIX = 'Huayue Admin <admin@huayuebox.com>'
     ADMIN = os.environ.get('ADMIN')
-
+    OPENVPN_LOGFILE = "/etc/openvpn/openvpn-status.log"
     @staticmethod
     def init_app(app):
         pass

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block page %}
+
+    {% if users %}
+    {% for user in users %}
+        <dt><h1>{{ user }} </h1> {{users[user].connected_since}}</dt>
+        <dd>Bytes In:{{ users[user].bytes_received }}</dd>
+        <dd>Bytes In:{{ users[user].bytes_sent }}</dd>
+
+    {% endfor %}
+    {% endif %}
+
+
+
+{% endblock %}
