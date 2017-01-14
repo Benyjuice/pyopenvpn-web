@@ -29,13 +29,13 @@ class Api:
         db.session.commit()
 
     def disconnect(self, bytes_received, bytes_sent):
-        log = LogModel.query.filter_by(finished=False).first()
-        if not log:
+        logs = LogModel.query.filter_by(username=self.username,finished=False).all()
+        if not logs:
             return 1
-        log.finished = True
-        log.bytes_received = bytes_received
-        log.bytes_sent = bytes_sent
-        log.end_time = datetime.utcnow()
-
-        db.session.add(log)
-        db.session.commit()
+        for log in logs:
+            log.finished = True
+            log.bytes_received = bytes_received
+            log.bytes_sent = bytes_sent
+            log.end_time = datetime.utcnow()
+            db.session.add(log)
+            db.session.commit()

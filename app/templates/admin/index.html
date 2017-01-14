@@ -5,7 +5,7 @@
     {% for user in users %}
         <dt><h1>{{ user }} </h1> <p>{{users[user].connected_since}}</p></dt>
         <dd>Bytes In:{{ users[user].bytes_received }}</dd>
-        <dd>Bytes In:{{ users[user].bytes_sent }}</dd>
+        <dd>Bytes Out:{{ users[user].bytes_sent }}</dd>
 
     {% endfor %}
     {% endif %}
