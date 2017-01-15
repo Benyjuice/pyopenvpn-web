@@ -1,0 +1,36 @@
+{% extends 'admin/index.html' %}
+{% block subpage %}
+    <h2 class="sub-header">用户列表</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>用户名</th>
+                <th>激活</th>
+                <th>可连接</th>
+                <th>累计连接</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td><a href="{{ url_for('main.user',id=user.id) }}">{{ user.username }}</a></td>
+                    <td>{% if user.active %}是{% else %}否{% endif %}</td>
+                    <td>{% if user.enable %}是{% else %}否{% endif %}</td>
+                    <td>{{ user.logs|length }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    </div>
+
+{% endblock %}

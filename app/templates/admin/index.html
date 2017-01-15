@@ -1,18 +1,33 @@
 {% extends 'base.html' %}
 {% block page %}
 
-    {% if users %}
-    {% for user in users %}
-        <dt><h1>{{ user }} </h1> <p>{{users[user].connected_since}}</p></dt>
-        <dd>Bytes In:{{ users[user].bytes_received }}</dd>
-        <dd>Bytes Out:{{ users[user].bytes_sent }}</dd>
-
-    {% endfor %}
-    {% endif %}
-
-    <div>
-    <p><a href="{{ url_for('admin.add_user') }}">add user</a> </p>
-    </div>
+{#    {% if users %}#}
+{#    {% for user in users %}#}
+{#        <dt><h1>{{ user }} </h1> <p>{{users[user].connected_since}}</p></dt>#}
+{#        <dd>Bytes In:{{ users[user].bytes_received }}</dd>#}
+{#        <dd>Bytes Out:{{ users[user].bytes_sent }}</dd>#}
+{##}
+{#    {% endfor %}#}
+{#    {% endif %}#}
+{##}
+{#    <div>#}
+{#    <p><a href="{{ url_for('admin.add_user') }}">add user</a> </p>#}
+{#    </div>#}
+{#<div class="container-fluid">#}
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="{{ url_for('admin.index') }}">用户</a></li>
+            <li><a href="{{ url_for('admin.add_user') }}">添加用户</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Export</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">仪表盘</h1>
+        {% block subpage %}{% endblock %}
+      </div>
+{#    </div>#}
 
 
 

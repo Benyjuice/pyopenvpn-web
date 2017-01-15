@@ -5,15 +5,22 @@ from .utils import utils
 from flask import render_template
 from ..models import UserModel
 from app import db
-from flask import flash
+from flask import flash, request
 
 @admin.route('/')
 @admin_required
 def index():
-    tool = utils()
-    users = tool.get_user()
-    print(users)
-    return render_template('admin/index.html', users=users)
+    type = request.args.get('type')
+    if not type:
+        type = 'user_list'
+
+    if type == 'user_list':
+        users = UserModel.query.order_by(UserModel.id).all()
+        return  render_template('admin/user_list.html', title='用户列表', users=users)
+    # tool = utils()
+    # users = tool.get_user()
+    # print(users)
+    # return render_template('admin/index.html', users=users)
 
 @admin.route('/add_user', methods=['GET','POST'])
 @admin_required
