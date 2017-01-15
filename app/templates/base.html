@@ -35,23 +35,45 @@
   <body>
 
     <div class="container">
-
-      <div class="masthead">
-        <h3 class="text-muted">PyOpenVPN Web</h3>
-        <ul class="nav nav-justified">
-          <li class="active"><a href="{{ url_for('main.index') }}">首页</a></li>
-          <li><a href="#">连接</a></li>
-          <li><a href="#">帮助</a></li>
-          <li><a href="#">下载</a></li>
-          <li><a href="#">关于</a></li>
-          <li><a href="#">联系我们</a></li>
-            {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('main.user_info') }}">{{ current_user.username }},你好</a> </li>
-            {% else %}
-                <li><a href="{{ url_for('auth.login') }}">登录</a> </li>
-            {% endif %}
-        </ul>
-      </div>
+      <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">PyOpenVPN Web</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="{{ url_for('main.download') }}">下载中心</a></li>
+              <li><a href="#">关于</a></li>
+                {% if current_user.is_administrator() %}
+                    <li class="btn-danger"><a href="{{ url_for('admin.index') }}">管理员</a> </li>
+                {% endif %}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if  current_user.is_authenticated %}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">用户<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url_for('main.user_info') }}">用户信息</a> </li>
+                            <li><a href="{{ url_for('auth.logout') }}">注销</a></li>
+                            <li><a href="#">管理账户</a></li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">Nav header</li>
+                            <li><a href="#">充值中心</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="{{ url_for('auth.login') }}">登录</a> </li>
+                {% endif %}
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
         {% for message in get_flashed_messages() %}
         <div class="alert alert-warning">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -70,5 +92,8 @@
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 {#    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>#}
+  <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
   </body>
 </html>

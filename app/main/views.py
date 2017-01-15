@@ -28,4 +28,11 @@ def user_info():
     return user(current_user.id)
 
 
+@main.route('/download')
+@login_required
+def download():
+    return render_template('download.html')
+
+
+
 
