@@ -26,7 +26,7 @@
           <td>{{ log.trusted_ip }}</td>
           <td>{{ moment(log.start_time).format('LLL') }}</td>
           <td>{{ moment(log.end_time).format('LLL') }}</td>
-            <td>{{ log.bytes_received + log.bytes_sent }}</td>
+            <td>{{ format_bytes(log.bytes_received + log.bytes_sent) }}</td>
         </tr>
     {% endfor %}
     </table>

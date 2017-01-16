@@ -1,4 +1,4 @@
-from flask import render_template, session, redirect, url_for
+from flask import render_template, session, redirect, url_for, current_app
 from flask_login import current_user, login_required
 from . import main
 from ..models import UserModel as User
@@ -11,6 +11,7 @@ def index():
 
 
 @main.route('/user/<id>')
+@login_required
 def user(id=None):
     if not id:
         user = current_user

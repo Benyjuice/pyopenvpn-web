@@ -10,6 +10,13 @@ app = create_app(os.getenv('CONFIG') or 'default')
 manager = Manager(app)
 migrate = Migrate(app, db, directory="migrations")
 
+from hurry.filesize import size
+
+
+@app.context_processor
+def utility_processor():
+    return dict(format_bytes=size)
+
 def make_shell_contex():
     return dict(db=db,app=app,User=UserModel,Log=LogModel, Api=Api, role=RoleModel)
 
